@@ -1,0 +1,12 @@
+2a3
+>     added to by jtnimoy in preperation for myron3 inclusion.
+39c40
+< 	
+---
+> 	static int countCameras();
+42a44,48
+> 	
+> 	int GetSettingsPreference(UserData *outUserData);
+> 	int SaveSettingsPreference(UserData inUserData);
+> 	
+> 

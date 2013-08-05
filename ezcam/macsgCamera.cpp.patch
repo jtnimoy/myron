@@ -1,0 +1,135 @@
+2a3
+>     added to by jtnimoy in 2006 for inclusion in myron3
+20a22,32
+> #if defined(__MWERKS__)
+>   #include <stdlib.h>
+>   #include <stdio.h>
+>   #include <string.h>
+>   #include <CFPreferences.h>
+> #else
+>   #include <fstream>
+>   using namespace std;
+> #endif
+> 
+> 
+33a46,55
+> 
+> int macsgCamera::countCameras()
+> {
+> 	//NOT IMPLEMENTED. someone please help me with this.
+> 	return 0;
+> }
+> 
+> 
+> 
+> 
+109,111c131,145
+< 	result = SGSettingsDialog ( sg, vc ,0 ,NULL ,seqGrabSettingsPreviewOnly,NULL,0);
+<     if(result!=noErr){
+<          fprintf(stdout, "could not get settings from dialog\n");
+---
+>     
+>     /* commented out by jtnimoy because window needs user interaction.
+>        result = SGSettingsDialog ( sg, vc ,0 ,NULL ,seqGrabSettingsPreviewOnly,NULL,0);
+>        if(result!=noErr){
+>        fprintf(stdout, "could not get settings from dialog\n");
+>        }
+>     */
+>     UserData mySGVideoSettings = NULL;
+>     //now load some saved camera settings
+>     GetSettingsPreference(&mySGVideoSettings);
+>     
+>     if (mySGVideoSettings) {
+>       // use the saved settings preference to configure the SGChannel
+>       SGSetChannelSettings(sg, vc, mySGVideoSettings, 0);
+>       DisposeUserData(mySGVideoSettings);
+113a148,149
+>     
+>     
+250c286,369
+< 	printf("not yet implemented\n");
+---
+>   
+>   int result = SGSettingsDialog(sg, vc, 0, 0, seqGrabSettingsPreviewOnly, 0, 0);   
+>   if(result!=noErr){
+>     fprintf(stdout, "could not get settings from dialog\n");
+>   }
+>   
+>   UserData mySGVideoSettings = NULL;
+>   // get the SGChannel settings cofigured by the user
+>   SGGetChannelSettings(sg, vc, &mySGVideoSettings, 0);
+>   // save the settings using the key "sgVideoSettings" 
+>   SaveSettingsPreference(mySGVideoSettings);
+>   DisposeUserData(mySGVideoSettings);
+> 
+>     
+> }
+> 
+> 
+> 
+> int macsgCamera::SaveSettingsPreference(UserData inUserData){
+>   CFDataRef theCFSettings;
+>   Handle    hSettings;
+>   OSErr     err;
+>   CFStringRef inKey = CFSTR("sgVideoSettings");
+>   CFStringRef appName = CFSTR("net.sourceforge.webcamxtra.myron");
+>   
+>   if (NULL == inUserData) return paramErr;
+>   
+>   hSettings = NewHandle(0);
+>   err = MemError();
+>   
+>   if (noErr == err) {
+>     err = PutUserDataIntoHandle(inUserData, hSettings); 
+>     
+>     if (noErr == err) {
+>       HLock(hSettings);
+>       theCFSettings = CFDataCreate(kCFAllocatorDefault,
+>                                    (UInt8 *)*hSettings,
+>                                    GetHandleSize(hSettings));
+>       if (theCFSettings) {
+>         CFPreferencesSetAppValue(inKey, theCFSettings,appName);
+>         CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication);
+>         CFRelease(theCFSettings);
+>       }
+>     }
+>     
+>     DisposeHandle(hSettings);
+>   }
+>   
+>   return err;
+> }
+> 
+> //-----------------------------------------------------------------------------
+> 
+> // GetSettingsPreference
+> //    Returns a preference for a specified key as QuickTime UserData
+> // It is your responsibility to dispose of the returned UserData
+> int macsgCamera::GetSettingsPreference(UserData *outUserData){
+>   
+>   
+>   UserData          theUserData = NULL;
+>   Handle            theHandle = NULL;
+>   OSErr             err = paramErr;
+>   
+>   CFPropertyListRef theCFSettings;
+>   CFStringRef inKey = CFSTR("sgVideoSettings");
+>   CFStringRef appName = CFSTR("net.sourceforge.webcamxtra.myron");
+>   
+>   // read the new setttings from our preferences
+>   theCFSettings = CFPreferencesCopyAppValue(inKey,appName);
+>   if (theCFSettings) {
+>     err = PtrToHand(CFDataGetBytePtr((CFDataRef)theCFSettings), &theHandle,
+> 		    CFDataGetLength((CFDataRef)theCFSettings));
+>     
+>     CFRelease(theCFSettings);
+>     if (theHandle) {
+>       err = NewUserDataFromHandle(theHandle, &theUserData);
+>       if (theUserData) {
+> 	*outUserData = theUserData;
+>       }
+>       DisposeHandle(theHandle);
+>     }
+>   }
+>   
+>   return err;

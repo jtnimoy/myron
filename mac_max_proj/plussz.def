@@ -1,0 +1,6 @@
+;plussz.def
+
+LIBRARY myron
+
+EXPORTS
+	main

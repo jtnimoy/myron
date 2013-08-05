@@ -1,0 +1,12 @@
+propegating a new myron member function to the Xtra wrapper (demo for mac developers)
+
+in xtra.h , add the function to that list of EXTERN_DEFINE_METHOD() calls at the bottom of the file. Copy it to your clipboard. you will need it.
+
+Open xtra.cpp and :
+	 - add a line to the msgTable[] array.
+	 - add the wrapper func at the bottom of the file. at bare minimum, the wrapper looks like this:
+	
+		MoaError TStdXtra_IMoaMmXScript::XScrp_webcamxtra_MYFUNCNAME(PMoaDrCallInfo pCall){		moa_try			myron->MYFUNCNAME();		moa_catch		moa_catch_end		moa_try_end		}
+
+	- add a new line to the the enumerated scripting method list. Make sure it's all in corresponding order. That matters.
+	- scroll down to the definition of STDMETHODIMP TStdXtra_IMoaMmXScript() and also add the function mapping to the switch-case.

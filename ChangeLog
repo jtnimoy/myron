@@ -1,0 +1,54 @@
+2007-05-24  U-JTMACBOOKWINXP\jtnimoy  <jtnimoy@jtmacbookwinxp>
+
+	* (cp): made cygwin builds possible, converted portvideo source
+	depend into a wget url - that's nice. let's do that to all the
+	source depends :-)
+
+2007-05-18  . s.  <s@simona.local>
+
+	* Makefile (all): fixed the `make install` so that it would not
+	require so much user helpage. thanks to simona for allowing me to
+	start from scratch on your system.
+
+0026
+
+18-sep-2006 - added setDifferenceMaskEdgeContract() for fringe control over difference masking.
+
+17-sep-2006 - added averageFloat() to myron core for more sensitive activity detection.
+
+15-sep-2006 - added setDifferenceMaskHoleFillMaxSize to fill in holes. also discovered that all this matting stuff only works with imagecopy() - not image()
+
+14-sep-2006 - simon authorises opening all development
+
+added nearest-neighbor pixel scaling to handle the win32-only difference between the requested capture dimensions and the forced capture dimensions. Keeping getForced*() because they are still useful.
+
+added 16-bit and 8-bit image copy support in Director in hopes to speed up the basic video flow. Todo: test on PC
+TODO: re-generate the portvideo patch for sgvideo subclass.
+
+lingo xtra had mis-documented variable names for average()
+
+setDifferenceMaskThreshold was implemented only on Mac Xtras that support 32-bit. Wait for Simon Biggs' concent before profilerating this function into the myron module and out the other parts.
+
+added "skip" to averaging function, per simon's request.
+
+
+
+0025
+
+added imageCopy() for java and xtra. also added getForcedWidth and getForcedHeight because of the PC scaling problem. This fix is temporary until we can find some nice code that does a good realtime scale.
+
+0024
+
+PC Users, Say goodbye to Quicktime and WinVDig dependencies! Say hello to blazing fast frame rates. oh yeah, and we also moved to SVN
+
+The limited dimensions bug should be fixed. Go wild with the larger resolutions and let us know.
+
+0023
+
+The infamous director memory leak is fixed. Please help me test this and report back if it works or doesn't work with your project!
+
+0022
+
+motion tracking works again. the retinaImage was looking psychedelic since version 2.0 and now it's fixed. That means all motion detection should work. Set adaptivity to higher than 0, and then watch the globs as they sense color change.
+
+

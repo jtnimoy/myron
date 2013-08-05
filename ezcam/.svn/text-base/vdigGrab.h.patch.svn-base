@@ -1,0 +1,8 @@
+34a35,38
+> 
+> #if defined(__MWERKS__)
+> #include <QuickTimeComponents.h>
+> #else
+36a41,42
+> #endif
+> 

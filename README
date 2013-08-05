@@ -1,0 +1,57 @@
+    __  ___                     
+   /  |/  /_  ___________  ____ 
+  / /|_/ / / / / ___/ __ \/ __ \
+ / /  / / /_/ / /  / /_/ / / / /
+/_/  /_/\__, /_/   \____/_/ /_/ 
+       /____/                   
+
+
+  computer vision for artists.
+
+
+
+This guides the developer through the process of the entire build. It
+doesn't deal with constructing a proper release distro (yet)
+
+mac:
+ PREREQUISITES:
+  metrowerks code warrior to build the director xtra.
+  /usr/local/PortVideoSDL-0.3 - get it from:
+  http://prdownloads.sourceforge.net/portvideo/PortVideoSDL-0.3.src.zip
+  xdk (macromedia Xtra API)
+ MAKING ALL:
+	build ezcam by doing `make` in the directory
+	build source dir for jni by doing `make` in the directory
+        build Xtra by opening up the project in mac_xtra_proj and hitting "build"
+
+
+
+win:
+ PREREQUISITES:
+  visual studio
+  jdk
+  xdk (macromedia Xtra API)
+  /usr/local/PortVideoSDL-0.3 - get it from:
+    http://prdownloads.sourceforge.net/portvideo/PortVideoSDL-0.3.src.zip
+ MAKING ALL:
+	build ezcam by doing a `make` in that directory.
+	build win_jni_proj by opening sln in VS and compiling.
+	build win_xtra_proj same way you built win_jni_proj
+
+
+
+
+DISTRO:
+	make sure the version is properly incremented.
+	compile the Xtra on PC and Mac, and substitute into the proper places - using pre-existing distro as a reference.
+	compile java (Mac will make the Jar) You need to update the DLL and the jnilib for mac and PC. substitute into a pre-existing distro zip.
+	ZIP THEM ON A PC to avoid .DS_Store files.
+	zip up the mac Xtra because it has a resource fork in it.
+	upload to shell.sourceforge.net
+	fill out the CHANGES.txt
+	submit to the SVN
+	do a release on sourceforge
+	change website's download links
+	do a news release if it's that important.
+	if it's even more important, email the webcamxtra-development email listserv.
+

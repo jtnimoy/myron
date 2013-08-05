@@ -1,0 +1,6 @@
+20a21,25
+> int dslibCamera::countCameras(){
+> 	//unimplemented. it's a todo.
+> 	return 0;
+> }
+> 

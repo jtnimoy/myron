@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/p/webcamxtra/svn/!svn/ver/29/ezcam/winwrap
+END
+dslibCamera.cpp.patch
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/p/webcamxtra/svn/!svn/ver/1/ezcam/winwrap/dslibCamera.cpp.patch
+END
+dslibCamera.h.patch
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/p/webcamxtra/svn/!svn/ver/1/ezcam/winwrap/dslibCamera.h.patch
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/p/webcamxtra/svn/!svn/ver/29/ezcam/winwrap/Makefile
+END

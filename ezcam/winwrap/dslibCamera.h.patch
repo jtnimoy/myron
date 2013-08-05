@@ -1,0 +1,8 @@
+43c43
+< 	
+---
+> 	static int countCameras();	
+45a46
+> 	char* xml_config;
+48d48
+< 	char* xml_config;
